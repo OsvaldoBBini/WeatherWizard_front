@@ -10,7 +10,7 @@ export default {
     },
     extend: {
       colors: {
-        backgroundColor: '#F6F5FC',
+        modal: '#F6F5FC',
         primary: {
           lighter: '#E8E3FF',
           light: '#6674F4',

@@ -1,6 +1,15 @@
+import { Provider } from "react-redux"
+import { store } from "./app/store"
+import { BrowserRouter } from "react-router-dom"
+import Router from "./Router"
+
 function App() {
   return (
-    <h1>Caixa</h1>
+    <BrowserRouter>
+      <Provider store={store}>
+        <Router />
+      </Provider>
+    </BrowserRouter>
   )
 }
 
