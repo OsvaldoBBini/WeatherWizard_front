@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { userInfoApi } from "../../services/userInfoService";
 
 interface IUser {
-  userId: string | null
+  userId: string | null,
+  modalStatus: boolean
 }
 
 const initialState: IUser = {
-  userId: null
+  userId: null,
+  modalStatus: true
 }
 
 const userSlice = createSlice({
@@ -17,7 +19,8 @@ const userSlice = createSlice({
     builder.addMatcher(
       userInfoApi.endpoints.storeUserInfo.matchFulfilled,
       (state, {payload}) => {
-        state.userId = payload.user_id
+        state.userId = payload.body.user_id,
+        state.modalStatus = false
       }
     )
   },

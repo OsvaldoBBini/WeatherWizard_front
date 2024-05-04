@@ -5,11 +5,15 @@ export const userInfoApi = createApi({
   baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3000'}),
   endpoints: (build) => ({
     storeUserInfo: build.mutation({
-      query: (body) => ({
+      query: ({userInfos}) => ({
         url: 'manage_user_info',
         method: 'POST',
-        body
+        body: userInfos
       })
     })
   }) 
 })
+
+export const {
+  useStoreUserInfoMutation
+} = userInfoApi

@@ -2,14 +2,19 @@ import Button from "../Button";
 import sun from "../../assets/sun.png"
 import { useModal } from "./useModal";
 
-export default function Modal() {
+interface IModal {
+  isOpen: boolean
+}
+
+export default function Modal({isOpen}: IModal) {
 
   const {
-    sendToNotAllowPredictionPage
+    sendToNotAllowPredictionPage,
+    storeUserInfos
   } = useModal();
 
   return (
-    <div className="fixed left-0 top-0 h-[100%] w-[100%] bg-black bg-opacity-75">
+    <div className={`${isOpen ? 'opacity-1' : 'opacity-0'} fixed left-0 top-0 h-[100%] w-[100%] bg-black bg-opacity-75`}>
       <div className="bg-modal rounded-lg w-[60%] absolute bottom-[20%] left-[20%] p-4">
         <img src={sun} className="w-40 h-40 absolute right-[-60px] top-[-100px]"/>
         <header>
@@ -28,7 +33,7 @@ export default function Modal() {
           <Button
             text="Avançar"
             variant={'primary'}
-            action={() => console.log('oi')}/>
+            action={storeUserInfos}/>
           <Button 
             text="Não Concordo"
             variant={'secondary'}
