@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { browserName, osName, deviceType } from 'react-device-detect';
 import { useStoreUserInfoMutation } from "../../services/userInfoService";
@@ -12,6 +12,7 @@ export function useModal(): {
 } {
 
   const navigate = useNavigate();
+  const location = window.navigator.geolocation;
 
   const [store, {isLoading, isError, isSuccess}] = useStoreUserInfoMutation();
 
@@ -22,23 +23,26 @@ export function useModal(): {
   const browser = browserName;
   const os = osName;
   const device = deviceType;
-  
+
   const sendToNotAllowPredictionPage = () => {
     navigate('/notAllow')
   };
-
-  const getUserLocation = () => {
-    const location = window.navigator && window.navigator.geolocation;
-    location.getCurrentPosition( ({coords, timestamp}) => {
-      const {latitude, longitude} = coords;
-      setLatitude(String(latitude));
-      setLongitude(String(longitude));
-      setTimestamp(String(timestamp));
-    });
-  }
-
-  const storeUserInfos = () => {
+  
+  const getUserLocation = useCallback(() => {
+    location.getCurrentPosition(
+      ({coords, timestamp}) => {
+        const {latitude, longitude} = coords;
+        setLatitude(String(latitude));
+        setLongitude(String(longitude));
+        setTimestamp(String(timestamp));
+      });
+    },[location]);
+    
+  useEffect(() => {
     getUserLocation();
+  }, [getUserLocation, latitude, longitude]);
+
+  const storeUserInfos = useCallback(() => {
     const userInfos = {
       latitude,
       longitude,
@@ -48,7 +52,7 @@ export function useModal(): {
       os
     };
     store({userInfos});
-  }
+  }, [browser, device, latitude, longitude, os, store, timestamp]);
 
   return {
     sendToNotAllowPredictionPage,

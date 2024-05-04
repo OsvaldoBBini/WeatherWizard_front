@@ -16,7 +16,7 @@ export default function Modal({isOpen}: IModal) {
   return (
     <div className={`${isOpen ? 'opacity-1' : 'opacity-0'} fixed left-0 top-0 h-[100%] w-[100%] bg-black bg-opacity-75`}>
       <div className="bg-modal rounded-lg w-[60%] absolute bottom-[20%] left-[20%] p-4">
-        <img src={sun} className="w-40 h-40 absolute right-[-60px] top-[-100px]"/>
+        <img src={sun} className="w-40 absolute right-[-60px] top-[-100px]"/>
         <header>
           <h1 className="font-bold text-left mb-4 text-xl text-gray-800">Bem Vindo ao Weather Wizard!!</h1>
         </header>
