@@ -10,11 +10,12 @@ export default function Modal({isOpen}: IModal) {
 
   const {
     sendToNotAllowPredictionPage,
-    storeUserInfos
+    storeUserInfos,
+    isLoading
   } = useModal();
 
   return (
-    <div className={`${isOpen ? 'opacity-1' : 'opacity-0'} fixed left-0 top-0 h-[100%] w-[100%] bg-black bg-opacity-75`}>
+    <div className={`${isOpen ? 'block' : 'hidden'} fixed left-0 top-0 h-[100%] w-[100%] bg-black bg-opacity-75`}>
       <div className="bg-modal rounded-lg w-[60%] absolute bottom-[20%] left-[20%] p-4">
         <img src={sun} className="w-40 absolute right-[-60px] top-[-100px]"/>
         <header>
@@ -22,7 +23,7 @@ export default function Modal({isOpen}: IModal) {
         </header>
         <section className="mb-6">
             <p className="text-base text-gray-800 font-medium">
-              Esta aplicação irá tentar prever o clima na sua região, porém para isso precisaremos coletar alguns dados
+              Esta aplicação irá tentar identificar o clima em sua região, porém para isso precisaremos coletar alguns dados
             </p>
             <p className="mb-4 text-xs text-gray-400">
               *Dados a serem coletados: Latitude, Longitude, Navegador, Dispositivo e Sistema Operacional
@@ -33,9 +34,10 @@ export default function Modal({isOpen}: IModal) {
           <Button
             text="Avançar"
             variant={'primary'}
-            action={storeUserInfos}/>
-          <Button 
-            text="Não Concordo"
+            action={storeUserInfos}
+            isLoading={isLoading}/>
+          <Button
+            text="Não Permitir"
             variant={'secondary'}
             action={sendToNotAllowPredictionPage}/>
         </footer>

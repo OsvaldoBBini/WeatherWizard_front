@@ -2,13 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { browserName, osName, deviceType } from 'react-device-detect';
 import { useStoreUserInfoMutation } from "../../services/userInfoService";
+import toast from "react-hot-toast";
 
 export function useModal(): {
   sendToNotAllowPredictionPage: () => void,
   storeUserInfos: () => void,
-  isLoading: boolean,
-  isError: boolean,
-  isSuccess: boolean
+  isLoading: boolean
 } {
 
   const navigate = useNavigate();
@@ -54,11 +53,18 @@ export function useModal(): {
     store({userInfos});
   }, [browser, device, latitude, longitude, os, store, timestamp]);
 
+  useEffect(() => {
+    if(isError){
+      toast.error('Não foi possível obter seus dados!')
+    }
+    if (isSuccess){
+      toast.success('Obrigado por nos fornecer seus dados!')
+    }
+  }, [isError, isSuccess])
+
   return {
     sendToNotAllowPredictionPage,
     storeUserInfos,
     isLoading,
-    isError,
-    isSuccess
   }
 }

@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import Modal from "../../components/Modal";
 import { ReactPortal } from "../../components/ReactPortal";
 import { RootState } from "../../app/store";
+import Card from "../../components/Card";
 
 export default function Home(): JSX.Element {
 
@@ -12,8 +13,8 @@ export default function Home(): JSX.Element {
 
   return (
     <>
-      <div className="static">
-        <h1>Home</h1>
+      <div className="static flex h-screen items-center justify-center bg-primary-lighter">
+        <Card/>
       </div>
       <ReactPortal children={<Modal isOpen={modalStatus}/>}/>
     </>
