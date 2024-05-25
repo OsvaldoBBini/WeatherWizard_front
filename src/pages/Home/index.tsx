@@ -9,12 +9,10 @@ export default function Home(): JSX.Element {
   const modalStatus = useSelector((state: RootState) => state.user.modalStatus);
   const userId = useSelector((state: RootState) => state.user.userId);
 
-  console.log(userId);
-
   return (
     <>
       <div className="static flex h-screen items-center justify-center bg-primary-lighter">
-        <Card/>
+        {userId && <Card/>}
       </div>
       <ReactPortal children={<Modal isOpen={modalStatus}/>}/>
     </>

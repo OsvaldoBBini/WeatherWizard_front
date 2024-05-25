@@ -25,6 +25,19 @@ export default {
         success: {
           main: '#51CA73',
         },
+      },
+      keyframes: {
+        show: {
+          "0%": {
+            opacity: 0,
+          }, 
+          "100%": {
+            opacity: 1,
+          }
+        }
+      },
+      animation: {
+        "show": "show 1s forwards"
       }
     },
   },
