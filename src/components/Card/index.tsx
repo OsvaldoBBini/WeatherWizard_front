@@ -2,11 +2,42 @@ import Button from "../Button";
 import storm from "../../assets/storm.png"
 // import Loader from "../Loader";
 import SuccesCard from "../SuccessCard";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useUpdateUserInfoMutation } from "../../services/userInfoService";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import toast from "react-hot-toast";
+import { WrongAnswer } from "../WrongAnswer";
 
 export default function Card(): JSX.Element {
 
-  const [answer, setAnswer] = useState<boolean>(false);
+  const userId = useSelector((state: RootState) => state.user.userId);
+  const [answer, setAnswer] = useState<boolean | null>(null);
+
+  const [update, {isLoading, isError, isSuccess}] = useUpdateUserInfoMutation();
+
+  const handlePositiveAnswer = useCallback((value: boolean) => {
+    setAnswer(value);
+  }, [setAnswer]);
+
+  const handleNegativeAnswer = useCallback(() => {
+    setAnswer(false);
+  }, [setAnswer]);
+
+  const handleSubmitPositiveAnswer = useCallback(() => {
+    const userInfos = {
+      user_answer: true
+    };
+    update({userId, userInfos});
+  }, [update, userId]);
+
+  useEffect(() => {
+    if(isError){
+      toast.error('Não foi possível enviar a resposta!')
+    } if (isSuccess){
+      setAnswer(isSuccess);
+    }
+  }, [isError, isSuccess]);
 
   return (
     <div className="w-full flex justify-center items-center flex-col transition animate-show">
@@ -18,22 +49,24 @@ export default function Card(): JSX.Element {
           {/* <Loader className="w-14 h-14 border-slate-300 border-b-transparent"/> */}
         </div>
         <footer className="h-32 flex justify-center items-center flex-col pt-4 border-t-[1px] border-gray-300">
-          <SuccesCard answer={answer}/>
-          {!answer && 
+          {answer === null && 
           <>
             <span className="font-medium text-gray-800">Acertamos o clima em sua região?</span>
             <div className="flex gap-4 p-4">
               <Button className="bg-success-main" 
                 variant="primary"
+                isLoading={isLoading}
                 text="Sim"
-                action={() => setAnswer(true)}/>
+                onClick={handleSubmitPositiveAnswer}/>
               <Button className="bg-danger-main" 
                 variant="primary"
                 text="Não" 
-                action={() => setAnswer(true)}/>
+                onClick={handleNegativeAnswer}/>
             </div>
           </>
           }
+          {answer === false && <WrongAnswer answer={answer} onAnswer={handlePositiveAnswer}/>}
+          {answer && <SuccesCard answer={answer}/>}
         </footer>
       </div>
     </div>

@@ -23,9 +23,9 @@ export function useModal(): {
   const os = osName;
   const device = deviceType;
 
-  const sendToNotAllowPredictionPage = () => {
+  const sendToNotAllowPredictionPage = useCallback(() => {
     navigate('/notAllow')
-  };
+  },[navigate]);
   
   const getUserLocation = useCallback(() => {
     location.getCurrentPosition(

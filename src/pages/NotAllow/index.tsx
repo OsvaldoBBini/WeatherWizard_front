@@ -15,7 +15,7 @@ export default function NotAllow(): JSX.Element {
         <h1 className="text-gray-800 font-bold text-8xl mb-8">Ops!</h1>
         <p className="text-gray-800 text-center">Não podemos identificar o clima em sua região sem termos acesso a seus dados.</p>
         <p className="text-gray-800 text-center font-bold mb-4">Tem certeza de sua decisão?</p>
-        <Button className="pl-4 pr-4" variant='primary' text='Retornar ao Wizard' action={sendToHomePage}/>
+        <Button className="pl-4 pr-4" variant='primary' text='Retornar ao Wizard' onClick={sendToHomePage}/>
       </div>
     </div>
   )

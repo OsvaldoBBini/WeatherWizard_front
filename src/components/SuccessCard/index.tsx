@@ -1,7 +1,7 @@
 import checkCircle from '../../assets/check-circle.svg'
 
 interface ISuccessCard {
-  answer: boolean
+  answer: boolean | null
 }
 
 export default function SuccesCard({answer}: ISuccessCard): JSX.Element {

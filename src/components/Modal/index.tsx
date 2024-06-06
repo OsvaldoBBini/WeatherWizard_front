@@ -34,12 +34,12 @@ export default function Modal({isOpen}: IModal) {
           <Button
             text="Avançar"
             variant={'primary'}
-            action={storeUserInfos}
+            onClick={storeUserInfos}
             isLoading={isLoading}/>
           <Button
             text="Não Permitir"
             variant={'secondary'}
-            action={sendToNotAllowPredictionPage}/>
+            onClick={sendToNotAllowPredictionPage}/>
         </footer>
       </div>
     </div>
