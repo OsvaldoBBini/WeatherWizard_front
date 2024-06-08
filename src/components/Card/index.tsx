@@ -12,18 +12,19 @@ import rainy from '../../assets/rain.png'
 import snow from '../../assets/snow.png'
 import sunny from '../../assets/sun.png'
 
+const possibleAnswers = [
+  {value: 'cloudy', icon: cloudy},
+  {value: 'fog', icon: cloudy},
+  {value: 'rainy', icon: rainy},
+  {value: 'snow', icon: snow},
+  {value: 'sunny', icon: sunny},
+]
+
 export default function Card(): JSX.Element {
 
   const userId = useSelector((state: RootState) => state.user.userId);
   const [answer, setAnswer] = useState<boolean | null>(null);
 
-  const possibleAnswers = [
-    {value: 'cloudy', icon: cloudy},
-    {value: 'fog', icon: cloudy},
-    {value: 'rainy', icon: rainy},
-    {value: 'snow', icon: snow},
-    {value: 'sunny', icon: sunny},
-  ]
 
   const [update, {isLoading, isError, isSuccess}] = useUpdateUserInfoMutation();
 
