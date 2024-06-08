@@ -55,10 +55,10 @@ export function useModal(): {
 
   useEffect(() => {
     if(isError){
-      toast.error('Não foi possível obter seus dados!')
+      toast.error('We were unable to obtain your data!')
     }
     if (isSuccess){
-      toast.success('Obrigado por nos fornecer seus dados!')
+      toast.success('Thank you for providing us with your data!')
     }
   }, [isError, isSuccess])
 

@@ -19,25 +19,25 @@ export default function Modal({isOpen}: IModal) {
       <div className="bg-modal rounded-lg w-[60%] absolute bottom-[20%] left-[20%] p-6 transition animate-show">
         <img src={sun} className="w-40 absolute right-[-60px] top-[-100px]"/>
         <header>
-          <h1 className="font-bold text-left mb-4 text-xl text-gray-800">Bem Vindo ao Weather Wizard!!</h1>
+          <h1 className="font-bold text-left mb-4 text-xl text-gray-800">Welcome to WeatherWizard!!</h1>
         </header>
         <section className="mb-6">
             <p className="text-base text-gray-800 font-medium">
-              Esta aplicação irá tentar identificar o clima em sua região, porém para isso precisaremos coletar alguns dados
+              This application will try to identify the weather in your region, but for that, we will need to collect some data
             </p>
             <p className="mb-4 text-xs text-gray-400">
-              *Dados a serem coletados: Latitude, Longitude, Navegador, Dispositivo e Sistema Operacional
+              *Data to be collected: Latitude, Longitude, Browser, Device, and Operating System
             </p>
-            <p className="mb-4 text-base text-gray-800 font-semibold">Pronto para se surpreender?</p>
+            <p className="mb-4 text-base text-gray-800 font-semibold">Ready to be amazed?</p>
         </section>
-        <footer className="flex gap-x-4 justify-end mb-2 pt-4 border-t-[1px] border-gray-300">
+        <footer className="flex gap-4 justify-center sm:justify-end flex-wrap mb-2 pt-4 border-t-[1px] border-gray-300">
           <Button
-            text="Avançar"
+            text="Proceed"
             variant={'primary'}
             onClick={storeUserInfos}
             isLoading={isLoading}/>
           <Button
-            text="Não Permitir"
+            text="Don't allow"
             variant={'secondary'}
             onClick={sendToNotAllowPredictionPage}/>
         </footer>

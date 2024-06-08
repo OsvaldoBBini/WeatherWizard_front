@@ -8,9 +8,10 @@ import toast from "react-hot-toast";
 interface ISelecet {
   answer: boolean,
   onAnswer: (value: boolean) => void;
+  possibleAnswers: {value: string, icon: string}[]
 }
 
-export function WrongAnswer({answer, onAnswer}: ISelecet): JSX.Element {
+export function WrongAnswer({answer, onAnswer, possibleAnswers}: ISelecet): JSX.Element {
 
   const selectRef = useRef<HTMLSelectElement>(null);
   const userId = useSelector((state: RootState) => state.user.userId);
@@ -30,7 +31,7 @@ export function WrongAnswer({answer, onAnswer}: ISelecet): JSX.Element {
 
   useEffect(() => {
     if(isError){
-      toast.error('Não foi possível enviar a resposta!')
+      toast.error('It was not possible to send the response!')
     } if (isSuccess){
       onAnswer(isSuccess);
     }
@@ -39,16 +40,16 @@ export function WrongAnswer({answer, onAnswer}: ISelecet): JSX.Element {
   return (
     <div className={`${!answer ? 'block' : 'hidden'} ${!answer && "animate-show"}`}>
       <form className="w-full mb-4 mt-4 flex flex-col" onSubmit={handleSubmit}>
-        <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-800">Ops, erramos!! Pode nos indicar o clima certo?</label>
+        <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-800">Oops, we made a mistake! Could you indicate the correct weather?</label>
         <select id="countries" className="mb-4 bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" ref={selectRef} required>
           <option value={undefined}></option>
-          <option value={"Chuvoso"}>Chuvoso</option>
-          <option value={"Ensolarado"}>Ensolarado</option>
-          <option value={"Tempestade"}>Tempestades</option>
-          <option value={"Nublado"}>Nublado</option>
+          {possibleAnswers.map((item) => 
+            <option value={item.value}>{item.value.toUpperCase()}</option>
+          )}
         </select>
         <Button isLoading={isLoading} variant="primary" text="Enviar" type="submit"/>
       </form>
     </div>
   )
 }
+
