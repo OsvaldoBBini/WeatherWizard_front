@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 interface ISelecet {
   answer: boolean,
   onAnswer: (value: boolean) => void;
-  possibleAnswers: {value: string, icon: string}[]
+  possibleAnswers: {[key: string]: {icon: string}}
 }
 
 export function WrongAnswer({answer, onAnswer, possibleAnswers}: ISelecet): JSX.Element {
@@ -43,8 +43,8 @@ export function WrongAnswer({answer, onAnswer, possibleAnswers}: ISelecet): JSX.
         <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-800">Oops, we made a mistake! Could you indicate the correct weather?</label>
         <select id="countries" className="mb-4 bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" ref={selectRef} required>
           <option value={undefined}></option>
-          {possibleAnswers.map((item) => 
-            <option value={item.value}>{item.value.toUpperCase()}</option>
+          {Object.keys(possibleAnswers).map((key) => 
+            <option value={key}>{key.toUpperCase()}</option>
           )}
         </select>
         <Button isLoading={isLoading} variant="primary" text="Enviar" type="submit"/>
