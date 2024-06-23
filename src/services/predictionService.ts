@@ -6,15 +6,16 @@ export const predictionApi = createApi({
   endpoints: (build) => ({
 
 
-    predictWeather: build.query({
-      query: () => 'prediction',
-      transformResponse: ({ body }): string => {
-        return body
-      }
+    predictWeather: build.mutation({
+      query: ({userId}) => ({
+        url: 'prediction',
+        method: 'POST',
+        body: { userId }
+      }) 
     })
   }) 
 })
 
 export const {
-  usePredictWeatherQuery
+  usePredictWeatherMutation
 } = predictionApi

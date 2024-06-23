@@ -1,5 +1,4 @@
 import Button from "../Button";
-// import Loader from "../Loader";
 import SuccesCard from "../SuccessCard";
 import { useCallback, useEffect, useState } from "react";
 import { useUpdateUserInfoMutation } from "../../services/userInfoService";
@@ -11,7 +10,7 @@ import cloudy from '../../assets/cloudy.png'
 import rainy from '../../assets/rain.png'
 import snow from '../../assets/snow.png'
 import sunny from '../../assets/sun.png'
-import { usePredictWeatherQuery } from "../../services/predictionService";
+import { usePredictWeatherMutation } from "../../services/predictionService";
 import Loader from "../Loader";
 
 const possibleAnswers = {
@@ -25,10 +24,10 @@ const possibleAnswers = {
 export default function Card(): JSX.Element {
 
   const userId = useSelector((state: RootState) => state.user.userId);
-
+  const [prediction, setPrediction] = useState<null | string>(null);
   const [answer, setAnswer] = useState<boolean | null>(null);
-  const {data: predict, isLoading: isLoadingPrediction, isError: isErrorPrediction} = usePredictWeatherQuery(null);
 
+  const [predict, {isLoading: isLoadingPrediction, isError: isErrorPrediction}] = usePredictWeatherMutation();
   const [update, {isLoading: isLoadingUpdating, isError: isErrorUpdating, isSuccess: isSuccessUpdating}] = useUpdateUserInfoMutation();
 
   const handlePositiveAnswer = useCallback((value: boolean) => {
@@ -45,6 +44,15 @@ export default function Card(): JSX.Element {
     };
     update({userId, userInfos});
   }, [update, userId]);
+
+  const handlePredictionResponse = useCallback( async () => {
+    const data = await predict({userId}).unwrap();
+    if (data) {
+      setPrediction(data.predict);
+    }
+  }, [predict, userId]);
+
+  useEffect(() => {handlePredictionResponse()}, [handlePredictionResponse]);
 
   useEffect(() => {
     if(isErrorUpdating){
@@ -65,10 +73,10 @@ export default function Card(): JSX.Element {
         <div className="m-4 text-center min-h-44 flex items-center justify-center flex-col gap-y-4">
           {isLoadingPrediction && <Loader className="w-14 h-14 border-slate-300 border-b-transparent"/>}
           {
-            predict && !isLoadingPrediction && 
+            prediction && !isLoadingPrediction && 
             <>
-              <img src={possibleAnswers[predict.toLowerCase()].icon} className="w-52 p-8"/>
-              <span className="text-gray-800 font-bold">{predict.toUpperCase()}</span>
+              <img src={possibleAnswers[prediction.toLowerCase()].icon} className="w-52 p-8"/>
+              <span className="text-gray-800 font-bold">{prediction.toUpperCase()}</span>
             </>
           }
         </div>
