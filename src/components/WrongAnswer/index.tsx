@@ -39,12 +39,12 @@ export function WrongAnswer({answer, onAnswer, possibleAnswers}: ISelecet): JSX.
 
   return (
     <div className={`${!answer ? 'block' : 'hidden'} ${!answer && "animate-show"}`}>
-      <form className="w-full mb-4 mt-4 flex flex-col" onSubmit={handleSubmit}>
-        <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-800">Oops, we made a mistake! Could you indicate the correct weather?</label>
+      <form className="w-full flex flex-col" onSubmit={handleSubmit}>
+        <label htmlFor="countries" className="block mt-8 mb-2 text-sm font-medium text-gray-800 text-center">Oops, we made a mistake! Could you indicate the correct weather?</label>
         <select id="countries" className="mb-4 bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" ref={selectRef} required>
           <option value={undefined}></option>
           {Object.keys(possibleAnswers).map((key) => 
-            <option value={key}>{key.toUpperCase()}</option>
+            <option value={key} key={key}>{key.toUpperCase()}</option>
           )}
         </select>
         <Button isLoading={isLoading} variant="primary" text="Enviar" type="submit"/>

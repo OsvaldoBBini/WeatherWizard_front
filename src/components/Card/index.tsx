@@ -24,6 +24,7 @@ const possibleAnswers = {
 export default function Card(): JSX.Element {
 
   const userId = useSelector((state: RootState) => state.user.userId);
+
   const [prediction, setPrediction] = useState<null | string>(null);
   const [answer, setAnswer] = useState<boolean | null>(null);
 
@@ -68,8 +69,8 @@ export default function Card(): JSX.Element {
 
   return (
     <div className="w-full flex justify-center items-center flex-col transition animate-show">
-      <div className="min-w-1/4 min-h-52 p-6 bg-modal bg-opacity-80 rounded-lg shadow-[1px_3px_8px_rgba(0,0,0,0.24)] flex items-center justify-center flex-col">
-        <header className="font-medium text-gray-800">We will attempt to identify the weather in your region....</header>
+      <div className="w-10/12 sm:w-[26rem] min-h-52 p-6 bg-modal bg-opacity-80 rounded-lg shadow-[1px_3px_8px_rgba(0,0,0,0.24)] flex items-center justify-center flex-col">
+        <header className="font-medium text-gray-800 text-center">We will attempt to identify the weather in your region....</header>
         <div className="m-4 text-center min-h-44 flex items-center justify-center flex-col gap-y-4">
           {isLoadingPrediction && <Loader className="w-14 h-14 border-slate-300 border-b-transparent"/>}
           {
@@ -80,10 +81,10 @@ export default function Card(): JSX.Element {
             </>
           }
         </div>
-        <footer className="h-32 flex justify-center items-center flex-col pt-4 border-t-[1px] border-gray-300">
+        <footer className="h-40 flex justify-center items-center flex-col border-t-[1px] border-gray-300">
           {answer === null && 
           <>
-            <span className="font-medium text-gray-800">Did we correctly identify the weather in your region?</span>
+            <span className="font-medium text-gray-800 text-center">Did we correctly identify the weather in your region?</span>
             <div className="flex gap-4 p-4">
               <Button className="bg-success-main" 
                 variant="primary"

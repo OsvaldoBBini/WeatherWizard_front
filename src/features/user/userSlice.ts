@@ -19,7 +19,7 @@ const userSlice = createSlice({
     builder.addMatcher(
       userInfoApi.endpoints.storeUserInfo.matchFulfilled,
       (state, {payload}) => {
-        state.userId = payload.body.user_id,
+        state.userId = payload.user_id,
         state.modalStatus = false
       }
     )

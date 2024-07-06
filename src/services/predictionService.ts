@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { baseUrl } from "./baseUrl";
 
 export const predictionApi = createApi({
   reducerPath: 'predictionApi',
-  baseQuery: fetchBaseQuery({baseUrl: 'https://bntp66nvx4.execute-api.us-east-1.amazonaws.com'}),
+  baseQuery: fetchBaseQuery({baseUrl: baseUrl}),
   endpoints: (build) => ({
 
 
