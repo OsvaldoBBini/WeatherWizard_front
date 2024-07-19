@@ -41,10 +41,11 @@ export default function Card(): JSX.Element {
 
   const handleSubmitPositiveAnswer = useCallback(() => {
     const userInfos = {
-      user_answer: true
+      answer: prediction,
+      user_answer: true,
     };
     update({userId, userInfos});
-  }, [update, userId]);
+  }, [update, userId, prediction]);
 
   const handlePredictionResponse = useCallback( async () => {
     const data = await predict({userId}).unwrap();
@@ -99,7 +100,7 @@ export default function Card(): JSX.Element {
             </div>
           </>
           }
-          {answer === false && <WrongAnswer answer={answer} onAnswer={handlePositiveAnswer} possibleAnswers={possibleAnswers}/>}
+          {answer === false && <WrongAnswer prediction={prediction} answer={answer} onAnswer={handlePositiveAnswer} possibleAnswers={possibleAnswers}/>}
           {answer && <SuccesCard answer={answer}/>}
         </footer>
       </div>

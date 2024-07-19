@@ -6,7 +6,6 @@ export const predictionApi = createApi({
   baseQuery: fetchBaseQuery({baseUrl: baseUrl}),
   endpoints: (build) => ({
 
-
     predictWeather: build.mutation({
       query: ({userId}) => ({
         url: 'prediction',

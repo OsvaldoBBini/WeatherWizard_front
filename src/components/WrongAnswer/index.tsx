@@ -6,12 +6,13 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 interface ISelecet {
+  prediction: string | null,
   answer: boolean,
   onAnswer: (value: boolean) => void;
   possibleAnswers: {[key: string]: {icon: string}}
 }
 
-export function WrongAnswer({answer, onAnswer, possibleAnswers}: ISelecet): JSX.Element {
+export function WrongAnswer({prediction, answer, onAnswer, possibleAnswers}: ISelecet): JSX.Element {
 
   const selectRef = useRef<HTMLSelectElement>(null);
   const userId = useSelector((state: RootState) => state.user.userId);
@@ -22,6 +23,7 @@ export function WrongAnswer({answer, onAnswer, possibleAnswers}: ISelecet): JSX.
     event.preventDefault();
     const selectValue = selectRef.current?.value;
     const userInfos = {
+      answer: prediction,
       user_answer: false,
       if_wrong_answer: selectValue
     };
