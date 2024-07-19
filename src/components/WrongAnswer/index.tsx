@@ -25,7 +25,7 @@ export function WrongAnswer({prediction, answer, onAnswer, possibleAnswers}: ISe
     const userInfos = {
       answer: prediction,
       user_answer: false,
-      if_wrong_answer: selectValue
+      if_wrong_answer: selectValue?.toUpperCase()
     };
 
     update({userId, userInfos});
